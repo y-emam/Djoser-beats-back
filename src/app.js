@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { PORT } = require("./config/index");
+const router = require("./routes");
 
 require("dotenv").config();
 
@@ -9,6 +10,7 @@ class App {
     this.app = express();
     this.port = PORT;
     this.initializeMiddlewares();
+    this.app.use("", router);
   }
 
   listen() {
