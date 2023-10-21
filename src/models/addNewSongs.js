@@ -1,3 +1,5 @@
-const addNewSongModel = (newSong) => {};
+const addNewSongDriveModel = (newSong) => {};
 
-module.exports = addNewSongModel;
+const addNewSongMongoModel = (newSong) => {};
+
+module.exports = { addNewSongDriveModel, addNewSongMongoModel };

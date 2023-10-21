@@ -2,8 +2,9 @@ const allSongsModel = require("../models/getAllSongs");
 
 const allSongsController = (req, res) => {
   try {
-    // TODO: get all songs from the database
     const allSongs = allSongsModel();
+
+    res.send({ songs: allSongs });
   } catch (err) {
     res.status(500).json(err);
   }

@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const { JWT_HASH } = require("../config/dotenv");
 
-const authenticate = (token) => {
+const authenticate = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_HASH);
-    return true;
+    next();
   } catch (err) {
-    return false;
+    res.status(403).send("Enta meen ya m3rs");
   }
 };
 

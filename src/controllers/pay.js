@@ -1,11 +1,22 @@
 const payModel = require("../models/pay");
+const payService = require("../services/pay");
 
 const payController = (req, res) => {
   try {
     const paymentData = req.data;
-    const result = payModel();
+    var result = payService();
 
-    if ((result = "success")) {
+    if (result === "success") {
+      // Save payment details in mongo
+      result = payModel();
+
+      if (result === "success") {
+        res.send(result);
+      } else {
+        res.status(400).send(result);
+      }
+    } else {
+      res.status(400).send(result);
     }
   } catch (err) {
     res.status(500).json(err);
