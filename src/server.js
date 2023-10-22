@@ -3,7 +3,7 @@ const { App } = require("./app"); // Replace './app' with the correct relative p
 class server {
   constructor() {
     const app = new App();
-    app.listen();
+    app.startServer();
   }
 }
 new server();

@@ -29,8 +29,14 @@ class App {
     this.app.use(express.json());
   }
 
-  mongoConnect() {
-    initMongoose();
+  async mongoConnect() {
+    await initMongoose();
+  }
+
+  async startServer() {
+    this.mongoConnect()
+      .then(() => this.listen())
+      .catch((err) => console.log(`Failed to connect to DB: ${err}`));
   }
 }
 
