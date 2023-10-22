@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { PORT } = require("./config/dotenv");
 const router = require("./routes");
+const initMongoose = require("./database");
 
 require("dotenv").config();
 
@@ -11,6 +12,7 @@ class App {
     this.port = PORT;
     this.initializeMiddlewares();
     this.app.use("", router);
+    this.mongoConnect();
   }
 
   listen() {
@@ -25,6 +27,10 @@ class App {
   initializeMiddlewares() {
     this.app.use(cors());
     this.app.use(express.json());
+  }
+
+  mongoConnect() {
+    initMongoose();
   }
 }
 
