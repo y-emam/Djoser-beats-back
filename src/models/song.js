@@ -3,10 +3,7 @@ const Schema = mongoose.Schema;
 
 const songSchema = Schema({
   name: String,
-  duration: {
-    minutes: Number,
-    seconds: Number,
-  },
+  duration: String,
   likes: Number,
   publishDate: Date,
   plays: Number,
@@ -14,6 +11,8 @@ const songSchema = Schema({
   key: String,
   package: {},
   usageTerms: [String],
+  mp3Url: String,
+  imageUrl: String,
 });
 
 const Song = mongoose.model("Song", songSchema);
