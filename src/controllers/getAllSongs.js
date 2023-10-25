@@ -1,8 +1,8 @@
-const allSongsModel = require("../models/getAllSongs");
+const allSongsService = require("../services/getAllSongs");
 
 const allSongsController = (req, res) => {
   try {
-    const allSongs = allSongsModel();
+    const allSongs = allSongsService();
 
     res.send({ songs: allSongs });
   } catch (err) {

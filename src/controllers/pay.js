@@ -1,4 +1,3 @@
-const payModel = require("../models/pay");
 const payService = require("../services/pay");
 
 const payController = (req, res) => {

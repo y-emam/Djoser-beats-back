@@ -1,8 +1,8 @@
-const songDetailsModel = require("../models/songDetails");
+const songDetailsService = require("../services/songDetails");
 
 const songDetailsController = (req, res) => {
   try {
-    const songData = songDetailsModel();
+    const songData = songDetailsService();
 
     res.send(songData);
   } catch (err) {

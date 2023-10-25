@@ -1,15 +1,17 @@
-const addNewSongModel = require("../models/addNewSongs");
+const {
+  addNewSongMongoService,
+  addNewSongDriveService,
+} = require("../services/addNewSongs");
 
 const addNewSongController = async (req, res) => {
   try {
     const newSong = req.body;
 
     // Add song to drive
-    const driveRes = await addNewSongModel.addNewSongDriveModel(newSong);
+    const driveRes = await addNewSongDriveService(newSong);
 
     if (driveRes === "success") {
-      // Add song's data to mongodb
-      const mongoRes = await addNewSongModel.addNewSongMongoModel();
+      const mongoRes = await addNewSongMongoService();
       if (mongoRes === "success") {
         res.send({ message: "Uploaded Successfully" });
       } else {
