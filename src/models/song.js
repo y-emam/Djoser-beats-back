@@ -7,9 +7,19 @@ const songSchema = Schema({
   likes: Number,
   plays: Number,
   bpm: Number,
+  date: Date,
   key: String,
-  price: Number,
-  usageTerms: [String],
+  packages: {
+    name: String,
+    price: Number,
+    usages: {
+      musicRecording: String,
+      distributions: String,
+      audioStreams: String,
+      musicVideo: String,
+      livePerformances: String,
+    },
+  },
   mp3Url: String,
   imageUrl: String,
 });
