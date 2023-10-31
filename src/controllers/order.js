@@ -1,21 +1,29 @@
 const createOrder = require("../services/createOrder");
+const sendMail = require("../services/sendMail");
+
+require("dotenv").config();
 
 const orderController = async (req, res) => {
   try {
     const cartItems = req.body.cartItems;
-    const email = req.body.email;
+    const clientEmail = req.body.email;
 
-    var result = await createOrder(cartItems, email);
+    var result = await createOrder(cartItems, clientEmail);
     console.log(result);
 
-    if (result) {
-      // result = sendMail();
+    console.log(process.env.OWNER_MAIL);
+    console.log(process.env.DEVELOPER_MAIL);
 
-      if (result) {
-        res.send(result);
-      } else {
-        res.status(400).send(result);
-      }
+    sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
+    sendMail.sendMailToOwner(
+      process.env.DEVELOPER_MAIL,
+      clientEmail,
+      cartItems
+    );
+    sendMail.sendMailToClient(clientEmail, cartItems);
+
+    if (result) {
+      res.send(result);
     } else {
       res.status(400).send(result);
     }
