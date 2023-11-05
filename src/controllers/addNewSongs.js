@@ -6,13 +6,14 @@ const addNewSongController = async (req, res) => {
 
     const mongoRes = await addNewSongMongoService(songData);
 
-    if (mongoRes === "success") {
+    if (mongoRes._id) {
       res.send({ message: "Uploaded Successfully" });
     } else {
-      res.send(400).send(mongoRes);
+      res.status(400).send(mongoRes);
     }
   } catch (err) {
-    res.send(500).json(err);
+    console.log(err);
+    res.status(500).json(err);
   }
 };
 
