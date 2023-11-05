@@ -1,5 +1,3 @@
-const addNewSongDriveService = (newSong) => {};
+const addNewSongMongoService = async (songData) => {};
 
-const addNewSongMongoService = (newSong) => {};
-
-module.exports = { addNewSongDriveService, addNewSongMongoService };
+module.exports = addNewSongMongoService;
