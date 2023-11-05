@@ -23,6 +23,9 @@ const songSchema = Schema({
   ],
   mp3Url: String,
   imageUrl: String,
+  wavUrl: String,
+  stemUrl: String,
+  licenceUrl: String,
 });
 
 const Song = mongoose.model("Song", songSchema);

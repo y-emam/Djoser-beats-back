@@ -23,8 +23,8 @@ async function driveGiveAccess(
     },
   ];
 
-  //   const result = await service.files.list();
-  //   return result;
+  const result = await service.files.list();
+  return result;
 
   //   const fileMetaData = {
   //     name: "fatrat.mp3",
@@ -49,21 +49,21 @@ async function driveGiveAccess(
   //     throw err;
   //   }
 
-  for (const permission of permissions) {
-    try {
-      const result = await service.permissions.create({
-        resource: permission,
-        fileId: fileId,
-        fields: "id",
-      });
-      permissionIds.push(result.data.id);
-      console.log(`Inserted permission id: ${result.data.id}`);
-    } catch (err) {
-      // TODO(developer): Handle failed permissions
-      console.error(err);
-    }
-  }
-  return permissionIds;
+  // for (const permission of permissions) {
+  //   try {
+  //     const result = await service.permissions.create({
+  //       resource: permission,
+  //       fileId: fileId,
+  //       fields: "id",
+  //     });
+  //     permissionIds.push(result.data.id);
+  //     console.log(`Inserted permission id: ${result.data.id}`);
+  //   } catch (err) {
+  //     // TODO(developer): Handle failed permissions
+  //     console.error(err);
+  //   }
+  // }
+  // return permissionIds;
 }
 
 module.exports = driveGiveAccess;
