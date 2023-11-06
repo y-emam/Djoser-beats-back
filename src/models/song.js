@@ -26,6 +26,7 @@ const songSchema = Schema({
   wavUrl: String,
   stemUrl: String,
   licenceUrl: String,
+  parentFolderUrl: String,
 });
 
 const Song = mongoose.model("Song", songSchema);

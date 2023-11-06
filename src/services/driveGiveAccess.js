@@ -3,10 +3,7 @@ const fs = require("fs");
 const { GoogleAuth } = require("google-auth-library");
 const { google } = require("googleapis");
 
-async function driveGiveAccess(
-  fileId = "1j1dMxv_NzhwBxBqQOtLA1SikBOVj5tIx",
-  targetUserEmail = "yasseremam2002@gmail.com"
-) {
+async function driveGiveAccess(cartItems, targetUserEmail) {
   const auth = new GoogleAuth({
     keyFilename: "credentials.json",
     scopes: ["https://www.googleapis.com/auth/drive"],
@@ -23,47 +20,50 @@ async function driveGiveAccess(
     },
   ];
 
-  const result = await service.files.list();
-  return result;
+  // const result = await service.files.list();
+  // return result;
 
-  //   const fileMetaData = {
-  //     name: "fatrat.mp3",
-  //     parents: ["1IjUVJp6PqW_KitHs8nB2VagCpqd-WIYX"],
-  //   };
+  try {
+    cartItems.forEach(async (item) => {
+      const fileMetaData = {
+        name: item.songName,
+        parents: [item.parentFolderUrl],
+      };
 
-  //   const media = {
-  //     mimeType: "audio/mp3",
-  //     body: fs.createReadStream("fatrat.mp3"),
-  //   };
+      const media = {
+        mimeType: "audio/mp3",
+        body: fs.createReadStream(item.songName),
+      };
 
-  //   try {
-  //     const file = await service.files.create({
-  //       resource: fileMetaData,
-  //       media: media,
-  //       fields: "id",
-  //     });
-  //     console.log("File Id:", file.data.id);
-  //     return file.data.id;
-  //   } catch (err) {
-  //     // TODO(developer) - Handle error
-  //     throw err;
-  //   }
+      const file = await service.files.create({
+        resource: fileMetaData,
+        media: media,
+        fields: "id",
+      });
+      console.log("File Id:", file.data.id);
+    });
 
-  // for (const permission of permissions) {
-  //   try {
-  //     const result = await service.permissions.create({
-  //       resource: permission,
-  //       fileId: fileId,
-  //       fields: "id",
-  //     });
-  //     permissionIds.push(result.data.id);
-  //     console.log(`Inserted permission id: ${result.data.id}`);
-  //   } catch (err) {
-  //     // TODO(developer): Handle failed permissions
-  //     console.error(err);
-  //   }
-  // }
-  // return permissionIds;
+    return file.data.id;
+  } catch (err) {
+    // TODO(developer) - Handle error
+    throw err;
+  }
+
+  for (const permission of permissions) {
+    try {
+      const result = await service.permissions.create({
+        resource: permission,
+        fileId: fileId,
+        fields: "id",
+      });
+      permissionIds.push(result.data.id);
+      console.log(`Inserted permission id: ${result.data.id}`);
+    } catch (err) {
+      // TODO(developer): Handle failed permissions
+      console.error(err);
+    }
+  }
+  return permissionIds;
 }
 
 module.exports = driveGiveAccess;

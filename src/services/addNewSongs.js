@@ -23,24 +23,12 @@ const addNewSongMongoService = async (songData) => {
     plays: 0,
     bpm: songData.bpm,
     date: datetime.toString(),
-    packages: [
-      {
-        name: String,
-        price: Number,
-        usages: {
-          musicRecording: String,
-          distributions: String,
-          audioStreams: String,
-          musicVideo: String,
-          livePerformances: String,
-        },
-      },
-    ],
     mp3Url: songData.mp3,
     imageUrl: songData.image,
     wavUrl: songData.wav,
     stemUrl: songData.stem,
-    licenceUrl: songData.stem,
+    licenceUrl: songData.licence,
+    parentFolderUrl: songData.parentFolder,
   });
 
   const result = await newSong.save();
