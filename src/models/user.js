@@ -6,7 +6,7 @@ const userSchema = Schema({
   first: String,
   last: String,
   noPayments: Number,
-  // TODO: know data that comes from payment through paypal
+  countryCode: String,
 });
 
 const User = mongoose.model("Payment", userSchema);

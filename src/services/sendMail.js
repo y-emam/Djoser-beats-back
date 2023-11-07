@@ -66,11 +66,13 @@ const sendMailToClient = async (recieverEmail, orderData) => {
       },
       to: recieverEmail, // list of receivers
       subject: "Download Your Beats Now", // Subject line
-      text: `
-      Your Purchases
-      ${orderData}
-      `, // plain text body
-      // html: "<b>Hello world?</b>", // html body
+      html: `<div>
+        <h2>Get Your Beats from the Following Links</h2>
+        <p>Thank you for choosing our beats to elevate your music! We're thrilled to have you as a part of our creative community. 
+        Your purchase includes the links to download your high-quality beats below. We hope these beats inspire and enhance your music projects. 
+        If you ever need assistance or have any questions, feel free to reach out to us. Enjoy the beats, and let your creativity flow!</p>
+        <a href="google.com">Downlaod</a>
+      </div>`, // html body
     });
 
     console.log("Message sent: %s", info.messageId);

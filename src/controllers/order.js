@@ -8,32 +8,30 @@ const orderController = async (req, res) => {
   try {
     const cartItems = req.body.cartItems;
     const clientEmail = req.body.email;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const countryCode = req.body.countryCode;
 
-    console.log(cartItems);
+    // todo: fix the comments
 
-    // Todo: uncomment the following lines
     // create order in mongo
-    await createOrder(cartItems, clientEmail);
+    // createOrder(cartItems, clientEmail);
+    // let _ = await addUser(clientEmail, firstName, lastName, countryCode);
+    // console.log(_);
 
     // send emails to owner and developer
-    sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
-    // sendMail.sendMailToOwner(
-    //   process.env.DEVELOPER_MAIL,
-    //   clientEmail,
-    //   cartItems
-    // );
+    // sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
 
     // send email to client
     sendMail.sendMailToClient(clientEmail, cartItems);
+    res.send("done");
+    // const result = await driveGiveAccess(cartItems, clientEmail);
 
-    // todo: give user access to the files
-    const result = await driveGiveAccess(cartItems, clientEmail);
-
-    if (result) {
-      res.send(result);
-    } else {
-      res.status(400).send(result);
-    }
+    // if (result) {
+    //   res.send(result);
+    // } else {
+    //   res.status(400).send(result);
+    // }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
