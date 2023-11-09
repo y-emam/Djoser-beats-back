@@ -3,12 +3,11 @@ const Schema = mongoose.Schema;
 
 const userSchema = Schema({
   email: String,
-  first: String,
-  last: String,
-  noPayments: Number,
+  firstName: String,
+  lastName: String,
   countryCode: String,
 });
 
-const User = mongoose.model("Payment", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
