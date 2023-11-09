@@ -15,23 +15,29 @@ const orderController = async (req, res) => {
     // todo: fix the comments
 
     // create order in mongo
-    // createOrder(cartItems, clientEmail);
-    // let _ = await addUser(clientEmail, firstName, lastName, countryCode);
-    // console.log(_);
+    createOrder(cartItems, clientEmail);
+    const addUserRes = await addUser(
+      clientEmail,
+      firstName,
+      lastName,
+      countryCode
+    );
+    console.log(addUserRes);
 
     // send emails to owner and developer
-    // sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
+    sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
 
     // send email to client
-    sendMail.sendMailToClient(clientEmail, cartItems);
-    res.send("done");
-    // const result = await driveGiveAccess(cartItems, clientEmail);
+    sendMail.sendMailToClient(clientEmail, links, cartItems);
 
-    // if (result) {
-    //   res.send(result);
-    // } else {
-    //   res.status(400).send(result);
-    // }
+    // give access to user for the drive
+    const result = await driveGiveAccess(cartItems, clientEmail);
+
+    if (result) {
+      res.send(result);
+    } else {
+      res.status(400).send(result);
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

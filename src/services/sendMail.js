@@ -45,7 +45,7 @@ const sendMailToOwner = async (recieverEmail, clientEmail, orderData) => {
 
 // todo: make it a prfessional email page
 // todo: add link from which he can download files
-const sendMailToClient = async (recieverEmail, orderData) => {
+const sendMailToClient = async (recieverEmail, links, cartItems) => {
   var transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.forwardemail.net",
@@ -71,7 +71,7 @@ const sendMailToClient = async (recieverEmail, orderData) => {
         <p>Thank you for choosing our beats to elevate your music! We're thrilled to have you as a part of our creative community. 
         Your purchase includes the links to download your high-quality beats below. We hope these beats inspire and enhance your music projects. 
         If you ever need assistance or have any questions, feel free to reach out to us. Enjoy the beats, and let your creativity flow!</p>
-        <a href="google.com">Downlaod</a>
+        <a href="${links}" style="color: black; background-color: grey; margin: 10px auto; display:block; width: 5rem; text-align: center; font-weight: bold; padding: 4px 8px;">Downlaod</a>
       </div>`, // html body
     });
 
