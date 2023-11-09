@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const busboy = require("connect-busboy");
 const { PORT } = require("./config/dotenv");
 const router = require("./routes");
 const initMongoose = require("./database");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -25,6 +27,8 @@ class App {
   }
 
   initializeMiddlewares() {
+    this.app.use(busboy());
+    this.app.use(express.static(path.join(__dirname, "public")));
     this.app.use(cors());
     this.app.use(express.json());
   }

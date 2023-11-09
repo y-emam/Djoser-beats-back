@@ -2,19 +2,12 @@ const { default: getAudioDurationInSeconds } = require("get-audio-duration");
 const Song = require("../models/song");
 
 const addNewSongMongoService = async (songData) => {
-  // edit the links of mp3 and image
-  const mp3Url = songData.mp3.split("/");
-  songData.mp3 = `https://drive.google.com/uc?id=${mp3Url[mp3Url.length - 2]}`;
-
-  const imageUrl = songData.image.split("/");
-  songData.image = `https://drive.google.com/uc?id=${
-    imageUrl[imageUrl.length - 2]
-  }`;
-
   // get the duration of the beat
-  const duration = await getAudioDurationInSeconds(songData.mp3);
-
+  const duration = await getAudioDurationInSeconds(songData.mp3Edit);
+  console.log(duration);
   const datetime = new Date();
+
+  // hhttps://drive.google.com/uc?id=1IQbuV841m15JeXYje2T7KkoM3qIYYE6k&export=view/
 
   const newSong = new Song({
     name: songData.name,
@@ -23,14 +16,16 @@ const addNewSongMongoService = async (songData) => {
     plays: 0,
     bpm: songData.bpm,
     date: datetime.toString(),
-    mp3Url: songData.mp3,
+    mp3EditUrl: songData.mp3Edit,
     imageUrl: songData.image,
+    mp3OrgUrl: songData.mp3Org,
     wavUrl: songData.wav,
     stemUrl: songData.stem,
     licenceUrl: songData.licence,
     parentFolderUrl: songData.parentFolder,
   });
 
+  console.log(newSong);
   const result = await newSong.save();
 
   return result;

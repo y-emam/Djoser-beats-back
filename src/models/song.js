@@ -8,8 +8,9 @@ const songSchema = Schema({
   plays: Number,
   bpm: Number,
   date: Date,
-  mp3Url: String,
+  mp3EditUrl: String,
   imageUrl: String,
+  mp3OrgUrl: String, // org stands for original
   wavUrl: String,
   stemUrl: String,
   licenceUrl: String,

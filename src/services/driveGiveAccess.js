@@ -3,7 +3,7 @@ const fs = require("fs");
 const { GoogleAuth } = require("google-auth-library");
 const { google } = require("googleapis");
 
-async function driveGiveAccess(cartItems, targetUserEmail) {
+async function driveGiveAccess(targetUserEmail, cartItems) {
   const auth = new GoogleAuth({
     keyFilename: "credentials.json",
     scopes: ["https://www.googleapis.com/auth/drive"],

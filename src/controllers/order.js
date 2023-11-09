@@ -1,5 +1,6 @@
 const addUser = require("../services/addUser");
 const createOrder = require("../services/createOrder");
+const driveGiveAccess = require("../services/driveGiveAccess");
 const sendMail = require("../services/sendMail");
 
 require("dotenv").config();
@@ -12,8 +13,6 @@ const orderController = async (req, res) => {
     const lastName = req.body.lastName;
     const countryCode = req.body.countryCode;
 
-    // todo: fix the comment
-
     // create order in mongo
     createOrder(cartItems, clientEmail);
     await addUser(clientEmail, firstName, lastName, countryCode);
@@ -25,15 +24,13 @@ const orderController = async (req, res) => {
     sendMail.sendMailToClient(clientEmail, links, cartItems);
 
     // give access to user for the drive
-    const result = await driveGiveAccess(cartItems, clientEmail);
+    const result = await driveGiveAccess(clientEmail, cartItems);
 
-    res.send("done");
-
-    // if (result) {
-    //   res.send(result);
-    // } else {
-    //   res.status(400).send(result);
-    // }
+    if (result) {
+      res.send(result);
+    } else {
+      res.status(400).send(result);
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
