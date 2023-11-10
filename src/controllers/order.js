@@ -14,20 +14,17 @@ const orderController = async (req, res) => {
     const countryCode = req.body.countryCode;
 
     // // create order in mongo
-    // createOrder(cartItems, clientEmail);
-    // await addUser(clientEmail, firstName, lastName, countryCode);
-
-    // // send emails to owner and developer
-    // sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
-
-    // // send email to client
-    // sendMail.sendMailToClient(clientEmail, links, cartItems);
+    createOrder(cartItems, clientEmail);
+    await addUser(clientEmail, firstName, lastName, countryCode);
 
     // give access to user for the drive
     const result = await driveGiveAccess(clientEmail, cartItems);
 
-    res.send(result);
-    return;
+    // send emails to owner and developer
+    sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
+
+    // send email to client
+    sendMail.sendMailToClient(clientEmail, links, cartItems);
 
     if (result) {
       res.send(result);
