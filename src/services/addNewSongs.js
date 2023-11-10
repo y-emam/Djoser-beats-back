@@ -3,8 +3,11 @@ const Song = require("../models/song");
 
 const addNewSongMongoService = async (songData) => {
   // get the duration of the beat
-  const duration = await getAudioDurationInSeconds(songData.mp3Edit);
-  console.log(duration);
+  let duration = await getAudioDurationInSeconds(songData.mp3Edit);
+  duration = `${Math.floor(duration / 60)}:${Math.floor(
+    ((duration / 60) % 1) * 60
+  )}`;
+
   const datetime = new Date();
 
   // hhttps://drive.google.com/uc?id=1IQbuV841m15JeXYje2T7KkoM3qIYYE6k&export=view/

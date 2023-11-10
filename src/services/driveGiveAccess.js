@@ -22,8 +22,8 @@ async function driveGiveAccess(targetUserEmail, cartItems) {
     },
   ];
 
-  // const result = await service.files.list();
-  // return result;
+  const result = await service.files.list();
+  return result;
 
   // try {
   //   cartItems.forEach(async (item) => {
