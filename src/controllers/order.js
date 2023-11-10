@@ -18,16 +18,16 @@ const orderController = async (req, res) => {
     await addUser(clientEmail, firstName, lastName, countryCode);
 
     // give access to user for the drive
-    const result = await driveGiveAccess(clientEmail, cartItems);
+    const downloadableLinks = await driveGiveAccess(clientEmail, cartItems);
 
     // send emails to owner and developer
     sendMail.sendMailToOwner(process.env.OWNER_MAIL, clientEmail, cartItems);
 
     // send email to client
-    sendMail.sendMailToClient(clientEmail, links, cartItems);
+    sendMail.sendMailToClient(clientEmail, downloadableLinks, cartItems);
 
-    if (result) {
-      res.send(result);
+    if (downloadableLinks) {
+      res.send(downloadableLinks);
     } else {
       res.status(400).send(result);
     }

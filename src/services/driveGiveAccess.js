@@ -10,10 +10,9 @@ async function driveGiveAccess(targetUserEmail, cartItems) {
     scopes: ["https://www.googleapis.com/auth/drive"],
   });
 
-  // todo: give the user the authorization to open the file
-
   const service = google.drive({ version: "v3", auth: auth });
   const permissionIds = [];
+  let filesUrl = [];
 
   const permissions = [
     {
@@ -23,69 +22,38 @@ async function driveGiveAccess(targetUserEmail, cartItems) {
     },
   ];
 
-  // const result = await service.files.list();
-  // return result;
-
-  // try {
-  //   cartItems.forEach(async (item) => {
-  //     const fileMetaData = {
-  //       name: item.songName,
-  //       parents: [item.parentFolderUrl],
-  //     };
-
-  //     const media = {
-  //       mimeType: "audio/mp3",
-  //       body: fs.createReadStream(item.songName),
-  //     };
-
-  //     const file = await service.files.create({
-  //       resource: fileMetaData,
-  //       media: media,
-  //       fields: "id",
-  //     });
-  //     console.log("File Id:", file.data.id);
-  //   });
-
-  //   return file.data.id;
-  // } catch (err) {
-  //   // TODO(developer) - Handle error
-  //   throw err;
-  // }
-
   for (const permission of permissions) {
     try {
       cartItems.forEach(async (cartItem) => {
         const songPackages = await Song.find({ name: cartItem.songName });
 
         const getUrlsFromItem = (song) => {
-          let filesUrl = [];
-
-          console.log(song);
+          let temp = [];
 
           switch (cartItem.packageName) {
             case "Basic License":
-              filesUrl.push(song.mp3OrgUrl);
+              temp.push(song.mp3OrgUrl);
               break;
             case "Premium License":
-              filesUrl.push(song.mp3OrgUrl);
-              filesUrl.push(song.wavUrl);
+              temp.push(song.mp3OrgUrl);
+              temp.push(song.wavUrl);
               break;
             case "Premium Plus License":
-              filesUrl.push(song.mp3OrgUrl);
-              filesUrl.push(song.wavUrl);
-              filesUrl.push(song.stemUrl);
+              temp.push(song.mp3OrgUrl);
+              temp.push(song.wavUrl);
+              temp.push(song.stemUrl);
               break;
             case "Unlimited License":
-              filesUrl.push(song.mp3OrgUrl);
-              filesUrl.push(song.wavUrl);
-              filesUrl.push(song.stemUrl);
+              temp.push(song.mp3OrgUrl);
+              temp.push(song.wavUrl);
+              temp.push(song.stemUrl);
               break;
           }
 
-          return filesUrl;
+          return temp;
         };
 
-        const filesUrl = getUrlsFromItem(songPackages[0]);
+        filesUrl = getUrlsFromItem(songPackages[0]);
 
         for (let i = 0; i < filesUrl.length; i++) {
           const fileId = filesUrl[i].split("/")[5];
@@ -99,13 +67,14 @@ async function driveGiveAccess(targetUserEmail, cartItems) {
           console.log(`Inserted permission id: ${result.data.id}`);
         }
 
-        return permissionIds;
+        console.log(filesUrl);
+        return filesUrl;
       });
     } catch (err) {
       console.error(err);
     }
   }
-  return permissionIds;
+  return filesUrl;
 }
 
 module.exports = driveGiveAccess;
