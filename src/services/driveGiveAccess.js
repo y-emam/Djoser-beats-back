@@ -34,16 +34,16 @@ async function driveGiveAccess(targetUserEmail, cartItems) {
             case "Basic License":
               temp.push(song.mp3OrgUrl);
               break;
-            case "Premium License":
+            case "Standard License":
               temp.push(song.mp3OrgUrl);
               temp.push(song.wavUrl);
               break;
-            case "Premium Plus License":
+            case "Premium License":
               temp.push(song.mp3OrgUrl);
               temp.push(song.wavUrl);
               temp.push(song.stemUrl);
               break;
-            case "Unlimited License":
+            case "Exclusive License":
               temp.push(song.mp3OrgUrl);
               temp.push(song.wavUrl);
               temp.push(song.stemUrl);

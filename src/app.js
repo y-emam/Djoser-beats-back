@@ -11,7 +11,7 @@ require("dotenv").config();
 class App {
   constructor() {
     this.app = express();
-    this.port = PORT;
+    this.port = PORT || 5000;
     this.initializeMiddlewares();
     this.app.use("", router);
     this.mongoConnect();
