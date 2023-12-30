@@ -18,13 +18,13 @@ const addNewSongMongoService = async (songData) => {
     likes: 0,
     plays: 0,
     bpm: songData.bpm,
+    key: songData.key,
     date: datetime.toString(),
     mp3EditUrl: songData.mp3Edit,
     imageUrl: songData.image,
     mp3OrgUrl: songData.mp3Org,
     wavUrl: songData.wav,
     stemUrl: songData.stem,
-    licenceUrl: songData.licence,
     parentFolderUrl: songData.parentFolder,
   });
 
