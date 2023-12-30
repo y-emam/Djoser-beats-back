@@ -13,7 +13,7 @@ const addNewSongController = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json(err);
+    res.status(500).send(err);
   }
 };
 
