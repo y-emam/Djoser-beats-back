@@ -7,7 +7,7 @@ const songSchema = Schema({
   likes: Number,
   plays: Number,
   bpm: Number,
-  key: Number,
+  key: String,
   date: Date,
   mp3EditUrl: String,
   imageUrl: String,

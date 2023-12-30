@@ -1,12 +1,8 @@
-const { default: getAudioDurationInSeconds } = require("get-audio-duration");
+// const { default: getAudioDurationInSeconds } = require("get-audio-duration");
 const Song = require("../models/song");
 
 const addNewSongMongoService = async (songData) => {
   // get the duration of the beat
-  let duration = await getAudioDurationInSeconds(songData.mp3Edit);
-  duration = `${Math.floor(duration / 60)}:${Math.floor(
-    ((duration / 60) % 1) * 60
-  )}`;
 
   const datetime = new Date();
 
@@ -14,7 +10,7 @@ const addNewSongMongoService = async (songData) => {
 
   const newSong = new Song({
     name: songData.name,
-    duration: duration,
+    duration: songData.duration,
     likes: 0,
     plays: 0,
     bpm: songData.bpm,
